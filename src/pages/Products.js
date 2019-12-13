@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 // import { connect } from 'react-redux';
 
 import MainNavigation from "../components/MainNavigation";
@@ -14,30 +14,32 @@ const ProductsPage = () => {
     }, 0);
   };
 
+  const value = useContext(ShopContext);
+
   return (
-    <ShopContext.Consumer>
-      {value => (
-        <>
-          <MainNavigation cartItemNumber={cartItemCount(value.cart)} />
-          <main className="products">
-            <ul>
-              {value.products.map(product => (
-                <li key={product.id}>
-                  <div>
-                    <strong>{product.title}</strong> - ${product.price}
-                  </div>
-                  <div>
-                    <button onClick={() => value.addProductToCart(product)}>
-                      Add to Cart
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </main>
-        </>
-      )}
-    </ShopContext.Consumer>
+    // <ShopContext.Consumer>
+    //   {(value) => (
+    <>
+      <MainNavigation cartItemNumber={cartItemCount(value.cart)} />
+      <main className="products">
+        <ul>
+          {value.products.map(product => (
+            <li key={product.id}>
+              <div>
+                <strong>{product.title}</strong> - ${product.price}
+              </div>
+              <div>
+                <button onClick={() => value.addProductToCart(product)}>
+                  Add to Cart
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </main>
+    </>
+    //   )}
+    // </ShopContext.Consumer>
   );
 };
 
